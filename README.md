@@ -19,6 +19,10 @@ answer, including your reasoning, to this markdown file.
 
 ## My Runtime Analysis
 
+When my hasCycle() algorithm runs, it first checks if the length of the graph is 0 or 1, which if it is, the algorithm runs in constant time, because graphs of those lengths don't have any cycles.
+
+If the length is greater than 1, it reaches a nested for loop that loops through all nodes in the graph. Since every node is visited, this makes the run time of the nested for loop $\Theta(|V|^2)$. Since there are no other loop structures or function calls to go through, this is also the final complexity of the entire algorithm, $\Theta(|V|^2)$. This also happens to be the worst case scenerio since every node is checked - though if we wanted to be more specific, while asymtotically it will not change, if there is a graph with a spanning tree that connects all nodes without creating a loop, the algorithm will run just a little longer since there are more constant time operations that occur.
+
 
 # Sources
 
