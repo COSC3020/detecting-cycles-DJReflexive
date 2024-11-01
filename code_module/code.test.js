@@ -1,59 +1,115 @@
 import { GraphNode } from "./GraphNode.js";
 import { hasCycle } from "./code.js";
-import jsc from 'jsverify';
 
 
-    /* Helper Method */
+    /* Example Graphs */
 
-// Generates a graph with a given size and a limit to the weights
-function generateGraph(size) {
-    let graph = [];
+// Empty Graph
+let graph1 = []; 
 
-    for (let i = 0; i < size; i++) {
-        let edges = [];
+// Graph of 1x1 element
+let graph2 = [ new GraphNode("N", [0])]; 
 
-        for (let j = 0; j < size; j++) {
-            edges.push(jsc.random(0, 1)); 
-        }
+// Graph of 2x2 elements w/ no loop
+let graph3 = [ 
+    new GraphNode("A", [0, 0]),
+    new GraphNode("B", [0, 0])
+]; 
 
-        // using i for name, any name could be passed, the algorithm can handle
-        graph.push(new GraphNode(i, edges));
-    }
+// Graph of 2x2 elements w/ loop
+let graph4 = [
+    new GraphNode("X", [0, 1]),
+    new GraphNode("Y", [1, 0])
+]; 
 
-    return graph;
-}
+// More complex graph (5x5) w/ no loop
+let graph5 = [
+    new GraphNode("L", [0, 1, 0, 0, 0]),
+    new GraphNode("M", [0, 0, 0, 0, 1]),
+    new GraphNode("N", [0, 0, 0, 0, 0]),
+    new GraphNode("O", [0, 0, 1, 0, 0]),
+    new GraphNode("P", [0, 0, 0, 1, 0])
+];
 
+// More complex graph (6x6) w/ no loop
+let graph6 = [
+    new GraphNode("123", [0, 0, 0, 0, 0, 0]),
+    new GraphNode("456", [0, 0, 0, 0, 0, 0]),
+    new GraphNode("789", [0, 0, 0, 1, 0, 0]),
+    new GraphNode("147", [1, 0, 0, 0, 0, 0]),
+    new GraphNode("258", [0, 0, 0, 0, 0, 0]),
+    new GraphNode("369", [0, 0, 0, 0, 0, 0])
+];
+
+// More complex graph (4x4) w/ loop
+let graph7 = [
+    new GraphNode("1", [0, 0, 0, 0]),
+    new GraphNode("2", [0, 0, 1, 0]),
+    new GraphNode("3", [0, 0, 0, 1]),
+    new GraphNode("4", [0, 1, 0, 0])
+];
+
+// More complex graph (8x8) w/ loop
+let graph8 = [
+    new GraphNode("z", [0, 1, 0, 0, 1, 1, 0, 0]),
+    new GraphNode("y", [0, 0, 0, 0, 0, 0, 0, 0]),
+    new GraphNode("x", [0, 0, 0, 1, 0, 1, 0, 1]),
+    new GraphNode("w", [1, 0, 0, 0, 1, 0, 0, 1]),
+    new GraphNode("v", [0, 0, 1, 0, 0, 0, 0, 0]),
+    new GraphNode("u", [0, 1, 0, 0, 1, 0, 0, 1]),
+    new GraphNode("t", [1, 0, 1, 0, 0, 1, 0, 0]),
+    new GraphNode("s", [1, 0, 1, 0, 1, 0, 1, 0]),
+];
 
 
 
     /* Custom Testing */
 
-const numTests = 1000000; // Sufficiently Large Amount of Tests
-const maxGraphSize = 5; // Not too large so that cycles are more likely
+const result1 = hasCycle(graph1); 
+const result2 = hasCycle(graph2);
+const result3 = hasCycle(graph3);
+const result4 = hasCycle(graph4);
+const result5 = hasCycle(graph5);
+const result6 = hasCycle(graph6);
+const result7 = hasCycle(graph7);
+const result8 = hasCycle(graph8);
 
+console.assert(result1 == false, "Result1 was true...");
+if (result1 == true) {
+    throw "Result1 was true, should be false";
+}
 
-/*  
-*   This block generates lots of unit tests to stress test the algorithm.
-*   Ensuring the alogrithm can handle all sort of example scenerios.
-*
-*   Note:
-*
-*   These unit tests will randomly test graph sizes of 0, 1, and values 
-*   larger than 1.
-*
-*   Random weights will be assigned for every edge, where 0 indicates
-*   there is no edge. Negative values are also assigned, which the 
-*   algorithm will treat as if there is no edge, similarly to the 0 weight.
-*/ 
-for (let i = 0; i < numTests; i++) {
-    const graphSize = jsc.random(0, maxGraphSize);
-    const graph = generateGraph(graphSize);
+console.assert(result2 == false, "Result2 was true...");
+if (result2 == true) {
+    throw "Result2 was true, should be false";
+}
 
-    const result = hasCycle(graph);
+console.assert(result3 == false, "Result3 was true...");
+if (result3 == true) {
+    throw "Result3 was true, should be false";
+}
 
-    console.assert(result != null, "Result was null...");
+console.assert(result4 == true, "Result4 was false...");
+if (result4 == false) {
+    throw "Result4 was false, should be true";
+}
 
-    if (result == null) {
-        throw "Result was null...";
-    }
+console.assert(result5 == false, "Result5 was true...");
+if (result5 == true) {
+    throw "Result5 was true, should be false";
+}
+
+console.assert(result6 == false, "Result6 was true...");
+if (result6 == true) {
+    throw "Result6 was true, should be false";
+}
+
+console.assert(result7 == true, "Result7 was false...");
+if (result7 == false) {
+    throw "Result7 was false, should be true";
+}
+
+console.assert(result8 == true, "Result8 was false...");
+if (result8 == false) {
+    throw "Result8 was false, should be true";
 }

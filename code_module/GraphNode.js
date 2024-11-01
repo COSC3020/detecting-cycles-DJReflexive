@@ -8,7 +8,6 @@ export class GraphNode {
     constructor(name, edges) {
         this.name = name;
         this.edges = edges;
-        this.visited = false;
     }
 
     getName() { return this.name; }
