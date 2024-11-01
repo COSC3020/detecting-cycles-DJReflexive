@@ -21,7 +21,11 @@ answer, including your reasoning, to this markdown file.
 
 When my hasCycle() algorithm runs, it first checks if the length of the graph is 0 or 1, which if it is, the algorithm runs in constant time, because graphs of those lengths don't have any cycles.
 
-If the length is greater than 1, it reaches a nested for loop that loops through all nodes in the graph. Since every node is visited, this makes the run time of the nested for loop $\Theta(|V|^2)$. Since there are no other loop structures or function calls to go through, this is also the final complexity of the entire algorithm, $\Theta(|V|^2)$. This also happens to be the worst case scenerio since every node is checked - though if we wanted to be more specific, while asymtotically it will not change, if there is a graph with a spanning tree that connects all nodes without creating a loop, the algorithm will run just a little longer since there are more constant time operations that occur.
+If the length is greater than 1, it reaches a for loop which cycles through every node within the graph and checks all possible pathways from that node. This for loop will execute |V| times since it will only iterate through all the nodes, and not every possible edge within the graph.
+
+We then reach a recursive call which essentially executes a depth first search. Within this recursion is another for loop which will iterate through all the paths of the given current node. In the worst case scenerio, this will take |V|^2 to execute, since I am using an adjacency matrix representation and every possible edge is checked.
+
+Since these two operations are nested, we get the resulting time complexity of $\Theta(|V| * |V|^2)$, which simplifies to $\Theta(|V|^3)$.
 
 
 # Sources
