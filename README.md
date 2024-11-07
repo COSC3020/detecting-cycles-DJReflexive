@@ -21,11 +21,13 @@ answer, including your reasoning, to this markdown file.
 
 When my hasCycle() algorithm runs, it first checks if the length of the graph is 0 or 1, which if it is, the algorithm runs in constant time, because graphs of those lengths don't have any cycles.
 
-If the length is greater than 1, it reaches a for loop which cycles through every node within the graph and checks all possible pathways from that node. This for loop will execute |V| times since it will only iterate through all the nodes, and not every possible edge within the graph.
+If the length is greater than 1, it reaches a for loop which makes every node the starting node at some point. This for loop will execute $|V|$ times since it will only iterate through the nodes.
 
-We then reach a recursive call which essentially executes a depth first search. Within this recursion is another for loop which will iterate through all the paths of the given current node. In the worst case scenerio, this will take |V|^2 to execute, since I am using an adjacency matrix representation and every possible edge is checked.
+Within the recursive findCycle() method, we reach the first for loop and we iterate through the edges of the current node (which will execute |V| times) and check whether there is an edge. If there is an edge, the algorithm checks whether the child node has already been visited (which indicates a cycle), and if there is no cycle, will execute the next recursive call with the child node as the new current node. If a path reaches a dead end, the recursion backtracks (by popping nodes from the foundNodes() list) until it finds an undiscovered path to go down.
 
-Since these two operations are nested, we get the resulting time complexity of $\Theta(|V| * |V|^2)$, which simplifies to $\Theta(|V|^3)$.
+The worst case scenario of this algorithm is when there is no cycle within the graph, all nodes will become the "starting node" and all valid edges will be traversed from there.
+
+Since these operations are nested, we get the resulting time complexity of $\Theta(|V| * |V|)$, which simplifies to $\Theta(|V|^2)$. 
 
 
 # Sources
